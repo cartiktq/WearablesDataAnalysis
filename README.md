@@ -1,6 +1,6 @@
 # WearablesDataAnalysis
 
-This project is an approximation of some of my most recent work. The actual codebase is copyright protected by my former employers. The project details a training workflow for an unsupervised learning algorithm. It contains pseudocode, for a collection of Python classes, each of which can be containerized to perform the following steps of the workflow:
+This project is an approximation of some of my most recent work. The actual codebase is copyright protected. The project details a training workflow for an unsupervised learning algorithm. It contains pseudocode, for a collection of Python classes, each of which can be containerized to perform the following steps of the workflow:
 
 1) Python class 1 uses agentic API to extract data in CSV format from a AWS Kinesis or Kafka stream supplying real-time wearables data, containing variables including subject identifiers (generated identifiers not PHI such as SSN's or MRN's), for heart rate, blood pressure, surface skin temperature, oxygen saturation, and pulse rate,
 2) Python class 2, which collects real-time weather data such as temperature, heat index, wind chill, and humidity from weather sources, 
