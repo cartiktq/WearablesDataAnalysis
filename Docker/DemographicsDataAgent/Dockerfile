@@ -8,6 +8,6 @@ WORKDIR /app
 COPY ../../Python/DemographicsDataAgent.py ./DemographicsDataAgent.py
 
 # Install dependencies
-RUN pip install pandas boto3
+RUN pip install agentic_client
 
-CMD ["python", "agent.py"]
+CMD ["python", "DemographicsDataAgent.py"]
