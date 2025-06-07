@@ -8,6 +8,6 @@ WORKDIR /app
 COPY ../../Python/ClusterInterpreterAgent.py ./ClusterInterpreterAgent.py
 
 # Install dependencies
-RUN pip install pandas boto3 sklearn seaborn matplotlib
+RUN pip install pandas agentic-client llm-engine
 
 CMD ["python", "ClusterInterpreterAgent.py"]
