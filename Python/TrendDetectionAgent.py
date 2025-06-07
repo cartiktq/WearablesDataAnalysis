@@ -5,6 +5,7 @@
 import pandas as pd
 import numpy as np
 from scipy.signal import savgol_filter
+import os
 
 class TrendDetectionAgent:
     def __init__(self, window_size=5, std_dev_threshold=2):
@@ -29,16 +30,16 @@ class TrendDetectionAgent:
         return anomalies.fillna(False)
 
     def _apply_savgol_filter(self, series):
-        # Requires odd window size and at least 3
         win = max(3, self.window_size | 1)  # ensure odd
         return savgol_filter(series, window_length=win, polyorder=2, mode='nearest')
 
-    def execute(self, df: pd.DataFrame) -> pd.DataFrame:
+    def execute(self, df: pd.DataFrame, output_path: str = "trend_output.csv") -> pd.DataFrame:
         """
-        Main method to perform trend detection on input streaming data.
+        Perform trend detection and export to CSV.
 
-        :param df: Input dataframe with time-series data, must include `timestamp` and `subject_id`
-        :return: DataFrame with additional columns for smoothed trends and anomalies
+        :param df: Input dataframe with time-series data including `timestamp` and `subject_id`
+        :param output_path: Path to write the output CSV file
+        :return: Enriched DataFrame
         """
         df = df.sort_values(by=["subject_id", "timestamp"])
         result_df = df.copy()
@@ -60,4 +61,7 @@ class TrendDetectionAgent:
                 .transform(self._apply_std_deviation_filter)
             )
 
+        # Export to CSV
+        result_df.to_csv(output_path, index=False)
+        print(f"[TrendDetectionAgent] Exported enriched data to {os.path.abspath(output_path)}")
         return result_df
