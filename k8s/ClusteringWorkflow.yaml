@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ml-workflow
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: LLMClient
+          image: LLMClient:latest
+        - name: AgenticClient
+          image: AgenticClient:latest
+        - name: DemographicsDataAgent
+          image: DemographicsDataAgent:latest
+        - name: ClinicalDataAgent
+          image: ClinicalDataAgent:latest
+        - name: ClinicalNoteSummarizerAgent
+          image: ClinicalNoteSummarizerAgent:latest
+        - name: ClusteringAgent
+          image: ClusteringAgent:latest
+        - name: ClusteringEvaluationAgent
+          image: ClusteringEvaluationAgent:latest
+        - name: ClusterOutputAgent
+          image: ClusterOutputAgent:latest
+        - name: ClusterTSNEVisualizer
+          image: ClusterTSNEVisualizer:latest
+        - name: ClusterInterpreterAgent
+          image: ClusterInterpreterAgent:latest
