@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: WearablesPredictionPipeline
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: WearablesStreamAgent
+          image: ../Docker/WearablesStreamAgent:latest
+          volumeMounts:
+            - name: shared-data
+              mountPath: /data
+        - name: FeatureEngineeringAgent
+          image: ../Docker/FeatureEngineeringAgent:latest
+          volumeMounts:
+            - name: shared-data
+              mountPath: /data
+        - name: WearablesAnomalyDetectionAgent
+          image: ../Docker/WearablesAnomalyDetectionAgent:latest
+          volumeMounts:
+            - name: shared-data
+              mountPath: /data
+        - name: WearablesPredictionExporterAgent
+          image: ../Docker/WearablePredictionExporterAgent:latest
+          volumeMounts:
+            - name: shared-data
+              mountPath: /data
+      volumes:
+        - name: shared-data
+          emptyDir: {}
