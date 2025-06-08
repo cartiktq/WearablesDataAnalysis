@@ -1,3 +1,4 @@
+#DEPRECATED
 #A Python class to implement agent using Agentic AI principles to analyze real-time streaming wearable health data. 
 #It uses moving average filters and optionally other techniques (e.g., rolling standard deviation, thresholding) to 
 #detect trends or anomalies in time-series signals such as heart rate, blood pressure, etc.
