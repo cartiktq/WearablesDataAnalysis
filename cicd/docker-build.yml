@@ -1,0 +1,31 @@
+name: Build and Push Docker Containers
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Python/**'
+      - 'Docker/**'
+      - 'cicd/docker-build.yml'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [WearablesStreamAgent, FeatureEngineering Agent, WearablesAnomalyDetectionAgent, WearablesPredictionExporterAgent]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push ${{ matrix.agent }}
+        run: |
+          cd Project/containers/${{ matrix.agent }}
+          docker build -t your-dockerhub/${{ matrix.agent }}:latest .
+          docker push your-d
